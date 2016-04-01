@@ -1,0 +1,11 @@
+stat test1.txt
+
+prpat shivam test1.txt
+
+first 5 test1.txt
+
+last 1 test1.txt
+
+trunc 3 test1.txt
+
+diff test1.txt test2.txt

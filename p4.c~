@@ -1,0 +1,201 @@
+/*
+Parikh Shivam
+Ukpere Stephanie
+
+Project 4
+2nd Group Project
+*/
+
+
+#include <stdio.h>
+#include <ctype.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define SIZE 100 // defines the initial size of the char
+#define INCREMENT 50
+
+FILE *firstFile;// file pointer to print out first n line function
+FILE *lastFile;    // file to print out last n line function
+
+char *firstFileName;
+char *lastFileName;
+
+int num;
+
+char *read1; // store the first argument
+char *read2; // store the second argument
+char *read3; // store the third argument
+
+void first(int numFirstLines, char *fileName);
+char *nextLine(FILE *inputFile);
+
+
+/////////////////////////////////////////////////////////////
+///MAIN METHOD STARTS/////////
+///////////////////////////////////////////////////////////////
+
+
+int main(int args, char *argv[]){ // This argument will keep track of input calls and
+                                  // use the command file name to open it for reading
+
+  FILE *cmdFile;                  // this pointer will point to the input command file
+
+  char line[SIZE];
+
+  cmdFile = fopen(argv[1], "r");  // this will open the given file for reading
+
+  if((args != 2)||(cmdFile == NULL)){ // if the given arguments are not equal to 2 (must be a.out command file)If the command file couldn't be open
+    
+    printf("ERROR: Command file cannot be opened \n"); // It will give error message about unsuccessful file open
+    
+    exit(1);                                           // It will exit the programm if the file is not opened
+  }
+  else{
+    printf("Command file is opened \n");               // this will notify that file is open successfully
+  }
+
+  while(fgets(line, sizeof line, cmdFile) != NULL){
+    //while(nextLine(cmdFile) != NULL){
+
+    //TESTING AREA STARTS----- //
+
+    fputs(line, stdout); // testing purpose only -- prints read line into stdout
+
+
+    read1 = strtok(line, " \t");
+
+    read2 = strtok(NULL, " \t");
+
+    read3 = strtok(NULL, " \t");
+
+    //   read1 = nextLine(cmdFile);
+
+    //    read2 = nextLine(cmdFile);
+
+    //    read3 = nextLine(cmdFile);
+
+    printf("Read1: %s\n", read1);
+    printf("Read2: %s\n", read2);
+    printf("Read3: %s\n", read3);
+
+    //-----TEST AREA ENDS//
+
+
+
+    if(strcmp(read1, "stat") == 0){          // this statement will check if the command is "stat"
+
+
+
+    }
+
+    else if(strcmp(read1, "prpat") == 0){    // this statement will check if the command is "prpat"
+
+    }
+
+    else if(strcmp(read1, "first") == 0){    // this statement will check if the command is "first"
+
+      num = (int) strtol(read2, NULL, 10);   // this will convert the number value which is stored as "char" into "int"
+
+      printf("Digit into Num: %d\n", num);   // testing purpose only
+
+      printf("This is read2 %s\n", read2);   // testing purpose only
+
+      printf("read3: %s\n", 
+
+    //this will get rid off end line character from the file name
+
+      first(num, read3);                     // method call happens with num integer and file name
+    }
+
+    else if(strcmp(read1, "last") == 0){     // this statement will check if the command is "last"
+
+      num = (int) strtol(read2, NULL, 10);   // this will convert the number value which is stored as "char" into "int"
+
+      printf("Digit into Num: %d\n", num);   // testing purpose only
+
+      printf("This is read2 %s\n", read2);   // testing purpose only
+   }
+
+    else if(strcmp(read1, "trunc") == 0){    // this statement will check if the command is "trunc"
+
+      num = (int) strtol(read2, NULL, 10);   // this will convert the number value which is stored as "char" into "int"
+
+      printf("Digit into Num: %d\n", num);   // testing purpose only
+
+      printf("This is read2 %s\n", read2);   // testing purpose only
+    }
+
+    else if(strcmp(read1, "diff") == 0){     // this statement will check if the command is "diff"
+
+    }
+
+
+
+
+  } // while loop ends
+
+
+
+  return 0;
+
+}
+
+///////////////////////////////////////////////////////////////
+//////
+///MAIN METHOD ENDS///
+//////
+///////////////////////////////////////////////////////////////
+
+
+
+
+
+void first(int numFirstLines, char *fileName){
+
+  firstFile = fopen(fileName, "r");
+
+  if((numFirstLines < 0) || (firstFile == NULL)){
+    printf("OOPS! can't find this first function \n");
+    printf("number of line to print from file: %d\n", numFirstLines);
+
+  }
+
+  else{
+    printf("This function will work fine\n");
+  }
+}
+
+
+
+char * nextLine(FILE *inputFile){
+
+  char * nextLine;
+
+  int lineSize = SIZE;               // Initial size of line to be retrieved
+  int lineEnd = SIZE - 1;            // Variable to refer to last elememt in nextLine
+
+
+  if((nextLine = (char *) malloc(lineSize * sizeof(char))) == NULL){
+    fprintf(stderr, "Allocation failed!\n");
+    exit(1);
+  }
+
+  if(feof(inputFile))
+    return NULL;
+  else{
+    while(nextLine[lineEnd] != '\n'){
+      fgets(nextLine, lineSize, inputFile);
+      lineSize += INCREMENT;
+
+      if ((nextLine = (char *) realloc(nextLine, lineSize * sizeof(char))) == NULL){
+      fprintf(stderr, "Reallocation failed!\n");
+      exit(1);
+    }
+    lineEnd = strlen(nextLine) - 1;
+  }
+  }
+  return nextLine;
+ }
+
+        
